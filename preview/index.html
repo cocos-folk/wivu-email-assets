@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>WiVu Email Preview</title></head><body>
+<style>html,body{margin:0}
+:root{--bg:#f6f1ef;--fg:#2a1a1e;--mute:#6f5d62;--line:#e3d6d2;--card:#fff;--accent:#6b1329;--on:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1215;--fg:#f1e7e9;--mute:#b3a1a6;--line:#3a2a2f;--card:#26191d;--accent:#f0a0b2;--on:#26191d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c1215;--fg:#f1e7e9;--mute:#b3a1a6;--line:#3a2a2f;--card:#26191d;--accent:#f0a0b2;--on:#26191d;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px 16px 32px}
+main{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+header{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;justify-content:space-between}
+h1{font-size:18px;margin:0;letter-spacing:-.01em}
+p{margin:0;color:var(--mute);max-width:70ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;padding:7px 14px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--accent)}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto;display:flex;justify-content:center}
+iframe{border:0;background:#fff;height:78vh;min-height:560px;width:100%;max-width:100%;flex:none}
+.w{font-variant-numeric:tabular-nums;color:var(--mute)}
+</style>
+<main>
+<header><h1>WiVu booking confirmation: preview</h1><p>Final email file rendered with sample booking data. Resize with the buttons to see the mobile and desktop layouts.</p></header>
+<div class="bar" id="bar">
+<button data-w="320" aria-pressed="false">320</button><button data-w="390" aria-pressed="false">390</button><button data-w="430" aria-pressed="false">430</button><button data-w="1024" aria-pressed="true">Desktop</button>
+<span class="w" id="w"></span><a href="email.html" target="_blank" rel="noopener">Open email only</a>
+</div>
+<div class="stage"><iframe id="f" src="email.html" title="WiVu booking confirmation email"></iframe></div>
+</main>
+<script>
+const f=document.getElementById('f'),lab=document.getElementById('w');
+function set(w){f.style.width=w+'px';lab.textContent=w+'px wide';document.querySelectorAll('#bar button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.w==w)))}
+document.querySelectorAll('#bar button').forEach(b=>b.onclick=()=>set(+b.dataset.w));
+set(1024);f.style.maxWidth='none';
+</script>
+</body></html>
